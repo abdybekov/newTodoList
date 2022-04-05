@@ -13,23 +13,24 @@ class CreateTodo extends React.Component {
 
   handleChange(e) {
     console.log(e.target.value);
-    this.setState({ inputValue: e.target.value})
+    this.setState({ inputValue: e.target.value })
   }
 
   submit(e) {
     e.preventDefault();
     this.props.createTodo(this.state.inputValue);
+    this.setState({ inputValue: "" });
   }
 
   render() {
     return (
       <form onSubmit={this.submit} className="input-group">
-        <input 
+        <input
           value={this.state.inputValue}
           onChange={this.handleChange}
-          type="text" 
-          className="form-control" 
-          placeholder="Enter your todo" 
+          type="text"
+          className="form-control"
+          placeholder="Enter your todo"
         />
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>

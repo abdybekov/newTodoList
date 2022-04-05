@@ -8,6 +8,7 @@ export default function Todo(props) {
         <input
           type="checkbox"
           checked={props.status}
+          onChange={() => props.changeStatus(props.id)}
         />
         <p className={props.status ? css.done : ""}>{props.text}</p>
       </label>
