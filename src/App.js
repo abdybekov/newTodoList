@@ -12,15 +12,37 @@ class App extends React.Component {
         { id: 1, text: "Выполнить д-з", status: false },
         { id: 2, text: "Купить сахар", status: true },
         { id: 3, text: "Купить соль", status: false },
-      ]
+      ],
 
-      // isLoading: true,
+      isLoading: true,
 
     }
     this.createTodo = this.createTodo.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.onEdit = this.onEdit.bind(this)
+  }
+
+  componentDidMount() {
+    console.log("Did mount");
+    const data = JSON.parse(localStorage.getItem("todo")) || [];
+    this.setState({ todolist: data })
+
+
+    setTimeout(() => {
+      this.setState({ isLoading: false })
+    }, 2500)
+
+
+  }
+
+  componentDidUpdate() {
+    console.log("Did update")
+    localStorage.setItem("todo", JSON.stringify(this.state.todolist))
+  }
+
+  componentWillUnmount() {
+    console.log("Will unmount");
   }
 
   createTodo(str) {
@@ -31,11 +53,6 @@ class App extends React.Component {
         status: false
       }]
     });
-
-    // setTimeout(() => {
-    //   this.setState({ isLoading: false})
-    // }, 2500)
-
   };
 
   changeStatus(id) {
@@ -69,15 +86,15 @@ class App extends React.Component {
 
   render() {
 
-    // if (this.state.isLoading) {
-    //   return <div className='text-center mt-5'>
-    //     <img
-    //       width={"150px"}
-    //       src='https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif'
-    //       alt="Preloader"
-    //     />
-    //   </div>
-    // }
+    if (this.state.isLoading) {
+      return <div className='text-center mt-5'>
+        <img
+          width={"150px"}
+          src='https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif'
+          alt="Preloader"
+        />
+      </div>
+    }
 
     return (
       <div className="App">
