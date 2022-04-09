@@ -9,9 +9,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       todolist: [
-        { id: 1, text: "Выполнить д-з", status: false },
-        { id: 2, text: "Купить сахар", status: true },
-        { id: 3, text: "Купить соль", status: false },
+        // { id: 1, text: "Выполнить д-з", status: false },
+        // { id: 2, text: "Купить сахар", status: true },
+        // { id: 3, text: "Купить соль", status: false },
       ],
 
       isLoading: true,
