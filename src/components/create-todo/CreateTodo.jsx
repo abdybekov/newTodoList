@@ -12,7 +12,7 @@ class CreateTodo extends React.Component {
   }
 
   handleChange(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({ inputValue: e.target.value })
   }
 

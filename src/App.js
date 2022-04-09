@@ -12,10 +12,15 @@ class App extends React.Component {
         { id: 1, text: "Выполнить д-з", status: false },
         { id: 2, text: "Купить сахар", status: true },
         { id: 3, text: "Купить соль", status: false },
-      ]
+      ],
+
+      // isLoading: true,
+
     }
     this.createTodo = this.createTodo.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.onEdit = this.onEdit.bind(this)
   }
 
   createTodo(str) {
@@ -26,7 +31,13 @@ class App extends React.Component {
         status: false
       }]
     });
+
+    // setTimeout(() => {
+    //   this.setState({ isLoading: false})
+    // },2500)
+
   };
+
   changeStatus(id) {
     const newArr = this.state.todolist.map((item) => {
       if (item.id === id) {
@@ -38,18 +49,48 @@ class App extends React.Component {
     this.setState({ todolist: newArr });
   }
 
+  onDelete(id) {
+    const newArr = this.state.todolist.filter((todo) => todo.id !== id);
+    this.setState({ todolist: newArr })
+  }
+
+
+  onEdit(id, newText) {
+    const newArr = this.state.todolist.map((item) => {
+      if (item.id === id) {
+        const newObj = { ...item, text: newText }
+        return newObj
+      }
+      return item
+    });
+    this.setState({ todolist: newArr });
+  }
+
+
   render() {
+
+    // if (this.state.isLoading) {
+    //   return <div className='text-center mt-5'>
+    //     <img
+    //       width={"150px"}
+    //       src='https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif'
+    //       alt="Preloader"
+    //     />
+    //   </div>
+    // }
+
     return (
       <div className="App">
         <div className='todo-wrapper'>
-          <Header count={this.state.todolist.length} />
+          <Header count={this.state.todolist.length} done={this.state.todolist.filter((todo) => todo.status).length} />
           <div className='p-3'>
             <CreateTodo createTodo={this.createTodo} />
-
             <div className='mt-2 todo-list'>
               {
                 this.state.todolist.map((todo) => <Todo
                   key={todo.id}
+                  onEdit={this.onEdit}
+                  onDelete={this.onDelete}
                   changeStatus={this.changeStatus}
                   id={todo.id}
                   text={todo.text}
